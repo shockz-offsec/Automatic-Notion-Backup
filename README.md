@@ -13,7 +13,8 @@ cd Automatic-Notion-Backup
 - 2º Right click anywhere inside the page and select "Inspect Element"
 - 3º Locate "Application" and select "Cookies." Here you should be able to find "token_v2." Copy the property next to it called "Value." and paste it in the "NOTION_TOKEN_V2" field of the *config.json* file.
 - 4º 
-  ![Image](https://user-images.githubusercontent.com/67438760/147504321-3e0103c9-1b62-4415-8c72-4d9c56c5d20b.png)
+![Image](https://user-images.githubusercontent.com/67438760/147504406-7ebbddd9-eca3-4edd-9bec-48f724387d37.png)
+
 
 Now go to the Network tab, as shown on a screenshot below Enable "XHR" filter (1), clear console (2), start the export (3), select "enqueueTask" (4).
   
