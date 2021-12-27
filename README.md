@@ -28,7 +28,7 @@ Copy the value inside quotes and paste it in the NOTION_SPACE_ID field of the *c
 # Usage
 
 ```
-python3 notion_backup.py "target_path"
+python3 notion_backup.py"
 ```
 
 # Automating backups
