@@ -14,13 +14,13 @@ TIME_ZONE = "Europe/Paris"
 NOTION_API = 'https://www.notion.so/api/v3'
 
 data = {}
-with open('config.json') as file:
+with open(os.path.join(os.path.join(os.path.dirname(os.path.realpath(__file__)),'config.json'))) as file:
     data = json.load(file)
     
 NOTION_TOKEN_V2 = data["NOTION_TOKEN_V2"]
 NOTION_SPACE_ID = data["NOTION_SPACE_ID"]
 EXPORT_FILENAME = "export.zip"
-TARGET_PATH=data["TARGET_PATH"]
+TARGET_PATH = data["TARGET_PATH"]
 
 ENQUEUE_TASK_PARAM = {
     "task": {
@@ -70,7 +70,9 @@ def export():
 def save():
     
     today = datetime.today().strftime('%d-%m-%Y')
-    SAVE_DIR = TARGET_PATH
+    
+    #SAVE_DIR = 'C:\\Users\\Shockz\\Downloads'
+    SAVE_DIR= TARGET_PATH
     exported_file = os.path.join(SAVE_DIR, 'export.zip')
     base_name = os.path.join(SAVE_DIR, "notion_export-")
     today_path = os.path.join(base_name + today)
