@@ -70,9 +70,7 @@ def export():
 def save():
     
     today = datetime.today().strftime('%d-%m-%Y')
-    
-    #SAVE_DIR = 'C:\\Users\\Shockz\\Downloads'
-    SAVE_DIR= TARGET_PATH
+    SAVE_DIR = TARGET_PATH
     exported_file = os.path.join(SAVE_DIR, 'export.zip')
     base_name = os.path.join(SAVE_DIR, "notion_export-")
     today_path = os.path.join(base_name + today)
