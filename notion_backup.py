@@ -81,7 +81,7 @@ def save():
     
     if not os.path.exists(today_path):
         if len(backups) > 1:
-            shutil.rmtree(base_name + min([back.split('export-')[1] for back in backups]))
+            shutil.rmtree(base_name + datetime.strftime(min([datetime.strptime(str(back.split('export-')[1]),'%d-%m-%Y') for back in backups]),'%d-%m-%Y'))
             
         if exported_file:
             with zipfile.ZipFile(exported_file) as zip:
