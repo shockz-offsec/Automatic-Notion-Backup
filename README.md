@@ -26,6 +26,8 @@ Copy the value inside quotes and paste it in the NOTION_SPACE_ID field of the *c
 
 - 5º Finally, type where you want your backups to be stored in the "TARGET_PATH" field of the *config.json* file.
 
+> Each 2-3 months the notion token v2 will expire, so u'll get it again
+
 # Usage
 
 ```
