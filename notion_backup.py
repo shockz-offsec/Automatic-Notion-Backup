@@ -45,7 +45,12 @@ def request(endpoint: str, params: object):
 
 
 def export():
-    task_id = request('enqueueTask', ENQUEUE_TASK_PARAM).get('taskId')
+    try:
+        task_id = request('enqueueTask', ENQUEUE_TASK_PARAM).get('taskId')
+    except Exception as e:
+        print(str(e))
+        quit()
+
     print(f'Enqueued task {task_id}')
 
     while True:
