@@ -109,8 +109,8 @@ def save():
     """
 
         
-    removing_identifiers(today_path, name)
-def removing_identifiers(today_path : str, name : str):
+    removing_identifiers(today_path, today_file)
+def removing_identifiers(today_path : str, today_file : str):
     
     ids_files = []
     
@@ -168,7 +168,7 @@ def removing_identifiers(today_path : str, name : str):
                         os.path.relpath(os.path.join(root, file), 
                                         os.path.join(path, '..')))
 
-    with zipfile.ZipFile(f'{name}.zip', 'w', zipfile.ZIP_DEFLATED) as zipf:
+    with zipfile.ZipFile(f'{today_file}', 'w', zipfile.ZIP_DEFLATED) as zipf:
         zipdir(f'{today_path}/', zipf)
 
     shutil.rmtree(today_path)
