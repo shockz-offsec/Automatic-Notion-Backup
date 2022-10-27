@@ -4,7 +4,7 @@ Pd: Always keeps 2 backups (actual, and older)
 
 # Installation
 ```
-git clone https://github.com/jmlgomez73/Automatic-Notion-Backup.git
+git clone https://github.com/shockz-offsec/Automatic-Notion-Backup.git
 cd Automatic-Notion-Backup
 ```
 
