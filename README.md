@@ -1,40 +1,95 @@
 # Automatic-Notion-Backup
-A script to automate the process of downloading Markdown and CSV backups of Notion. In addition, the data is processed to remove the AWS identifier present in the files.
-Pd: Always keeps 2 backups (actual, and older)
+This script automates the backup process of Notion data into Markdown and CSV formats. Additionally, the script processes the data to remove any AWS identifiers that may be present in the Markdown files, folders, and internal references to other files in the backup.
 
-# Installation
+It should be noted that the script always keeps two backups: the current one and the previous one.
+
+## Requirements & Instalation
+To use this tool, you need to have the Selenium module installed. You can install it by running the following command in your terminal:
+
+```bash
+pip install selenium
+pip install requests
 ```
+
+After that, you can download the repository by running the following commands:
+
+```bash
 git clone https://github.com/shockz-offsec/Automatic-Notion-Backup.git
 cd Automatic-Notion-Backup
 ```
 
+### Compatibility
+
+This script is compatible with both Windows and Linux operating systems and requires Python 3.
+
+## Configuration
+
+The script's configuration is defined in the config.json file, which has the following structure:
+
+```json
+{
+    "REMOVE_IDS": true,
+    "NOTION_SPACE_ID":"Your_space_id",
+    "DOWNLOAD_PATH": "C:\\Users\\YourUsername\\Downloads",
+    "TARGET_PATH": "C:\\path\\to\\your\\backup\\folder",
+    "DEBUG_PATH": "C:\\path\\to\\your\\logs\\folder",
+    "EMAIL":"your_notion_email",
+    "PASSWORD":"your_password"
+}
+```
+
+* `REMOVE_IDS`: a boolean parameter that indicates whether the script should remove AWS identifiers from the downloaded files.
+* `NOTION_SPACE_ID`: The space id of your notion notes.
+* `DOWNLOAD_PATH`: the path where the downloaded files will be stored.
+* `TARGET_PATH`: the path where the processed backup files will be stored.
+* `DEBUG_PATH`: the path where the script logs will be saved.
+* `EMAIL`: the email address associated with the Notion account.
+* `PASSWORD`: the password associated with the Notion account.
+
+## UPDATE 2023
+Notion has recently added security measures by creating a Notion backup link through internal API calls that require authentication and authorization, using token_v2 and space_id. 
+
+Therefore, we have implemented web scraping authentication on the Notion account to enable downloading the export. This approach combines web scraping authentication with export requests via the internal API. 
+
+Although the acquisition of token_v2 has been automated, it is still necessary to obtain the space_id of the Notion notes to be exported manually
+
+## How it works
+
+The script automates the web scraping authentication process in the background, eliminating the need for user intervention. Subsequently, the script obtains the token_v2 and requests an export using Notion's internal calls, generating an export URL. 
+
+The export is downloaded and processed according to the user's choice in the configuration file, which can remove AWS identifiers from markdown files, folders, and internal file references. Old backups are then deleted, leaving only the current and most recent backups. 
+
+The processed export is compressed into a zip file with the format `notion_export-dd-mm-yyyy.zip`. 
+
+Additionally, the script generates a log file of all the actions performed during the process, using the `debug-dd-mm-yyyy.log` format.
+
+The script uses the Firefox webdriver (geckodriver), which is automatically installed during the setup process.
+
+
 # Getting NOTION_TOKEN and SPACE_ID for using Notion API
 
-- 1º Open your Notion in the browser
-- 2º Right click anywhere inside the page and select "Inspect Element"
-- 3º Locate "Application" and select "Cookies." Here you should be able to find "token_v2." Copy the property next to it called "Value." and paste it in the "NOTION_TOKEN_V2" field of the *config.json* file.
-- 4º 
-![Image](https://user-images.githubusercontent.com/67438760/147504406-7ebbddd9-eca3-4edd-9bec-48f724387d37.png)
+- Open your Notion in the browser
+- Right-click anywhere on the page and select "Inspect Element".
+  - 1º click on the "Network" tab, refresh the page (you can press F5).
+  - 2º Search for "getPublicSpaceData" and select one occurrence.
+  - 3º Your space ID is the first value associated with the first "id" field.
+  - 4º Copy and paste that ID into the *config.json* file under the "NOTION_SPACE_ID" field.
 
-
-Now go to the Network tab, as shown on a screenshot below Enable "XHR" filter (1), clear console (2), start the export (3), select "enqueueTask" (4).
-  
-Now scroll to the very bottom and under the “Request Payload” section you will see something like (6):
-spaceId: "4489c211-09d6-4069-ae3b-1665e25d6c03"
-
-Copy the value inside quotes and paste it in the NOTION_SPACE_ID field of the *config.json* file
-
-- 5º Finally, type where you want your backups to be stored in the "TARGET_PATH" field of the *config.json* file.
-
-> Each 2-3 months the notion token v2 will expire, so u'll get it again
 
 # Usage
 
-```
+```bash
 python3 notion_backup.py"
 ```
 
-# Automating backups
+## Automating backups
 
-In Windows it can be done by creating a scheduled task with the Windows task scheduler.
-In Linux using Cron for example.
+In Windows, you can automate the script by creating a scheduled task with the Windows Task Scheduler. This can be done by creating a `.bat` file with the following contents:
+
+```batch
+@echo off
+C:\Python3\python.exe "C:\path\to\notion_backup.py"
+```
+This will allow the script to run automatically at specified intervals without requiring manual intervention.
+
+In Linux you can use Cron for example.

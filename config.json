@@ -1,5 +1,9 @@
 {
-    "NOTION_TOKEN_V2": "",
-    "NOTION_SPACE_ID": "",
-    "TARGET_PATH": ""
+    "REMOVE_IDS": true,
+    "NOTION_SPACE_ID":"Your_space_id",
+    "DOWNLOAD_PATH": "C:\\Users\\YourUsername\\Downloads",
+    "TARGET_PATH": "C:\\path\\to\\your\\backup\\folder",
+    "DEBUG_PATH": "C:\\path\\to\\your\\logs\\folder",
+    "EMAIL":"your_notion_email",
+    "PASSWORD":"your_password"
 }
