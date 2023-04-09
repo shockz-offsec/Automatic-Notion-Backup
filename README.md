@@ -74,7 +74,8 @@ The script uses the Firefox webdriver (geckodriver), which is automatically inst
   - 2º Search for "getPublicSpaceData" and select one occurrence.
   - 3º Your space ID is the first value associated with the first "id" field.
   - 4º Copy and paste that ID into the *config.json* file under the "NOTION_SPACE_ID" field.
-
+  
+![STEPS](https://user-images.githubusercontent.com/67438760/230782980-9794d5d9-1045-4f2a-923b-396b0725f255.png)
 
 # Usage
 
