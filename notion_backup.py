@@ -92,24 +92,39 @@ def generate_export():
     driver.execute_script("window.open('{}');".format(export_url))
 
     try:
-        # Wait for the download to complete
-        while not any(filename.endswith(".zip") for filename in os.listdir(download_path)):
-            time.sleep(1)
-
-        # Wait for the downloaded file to be ready for use (it may take a few seconds after appearing in the directory).
         while True:
-            filepath = os.path.join(download_path, [filename for filename in os.listdir(download_path) if filename.endswith(".zip")][0])
-            if time.time() - os.path.getmtime(filepath) > 10:
-                break
-            time.sleep(1)
+            # Find the ZIP file with .zip extension and without the temporary prefix
+            filename = [filename for filename in os.listdir(download_path) if filename.endswith(".zip") and not filename.endswith(".crdownload")]
+            
+            if filename: # If you find a ZIP file
+                filepath = os.path.join(download_path, filename[0]) # Gets the full path to the file
+                size = os.path.getsize(filepath) # Gets the file size
+                time.sleep(1)
+                
+                # Checks if the file size has stabilized in the last 30 seconds
+                for _ in range(30):
+                    if os.path.getsize(filepath) != size: # If the size has changed
+                        size = os.path.getsize(filepath) # Update file size
+                        time.sleep(1) 
+                    else: # If the size has not changed
+                        break # Exits the for loop
+                else: # If the time limit is reached
+                    logging.error("The ZIP file download could not be completed in the expected time.")
+                break # Exits the for loop
+            else: # If no ZIP file is found
+                time.sleep(1)
 
     except Exception as e:
         logging.exception(f"Error while waiting for download: {e}")
     finally:
-        time.sleep(10)
+        time.sleep(15)
 
     # Close the browser
-    driver.quit()
+    try:
+        driver.execute_script("window.open('','_self').close();")
+        driver.quit()
+    except:
+        pass
     
     # Get the path of the most recently downloaded file
     filename_path = max([os.path.join(download_path, f) for f in os.listdir(download_path)], key=os.path.getctime)
