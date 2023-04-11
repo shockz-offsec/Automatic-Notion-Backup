@@ -68,7 +68,7 @@ Additionally, the script generates a log file of all the actions performed durin
 The script uses the Firefox webdriver (geckodriver), which is automatically installed during the setup process.
 
 
-# Getting NOTION_TOKEN and SPACE_ID for using Notion API
+## Getting NOTION_TOKEN and SPACE_ID for using Notion API
 
 - Open your Notion in the browser
 - Right-click anywhere on the page and select "Inspect Element".
@@ -79,7 +79,7 @@ The script uses the Firefox webdriver (geckodriver), which is automatically inst
   
 ![STEPS](https://user-images.githubusercontent.com/67438760/230782980-9794d5d9-1045-4f2a-923b-396b0725f255.png)
 
-# Usage
+## Usage
 
 ```bash
 python3 notion_backup.py"
@@ -96,3 +96,9 @@ C:\Python3\python.exe "C:\path\to\notion_backup.py"
 This will allow the script to run automatically at specified intervals without requiring manual intervention.
 
 In Linux you can use Cron for example.
+
+## Complete web-scraping version removing the need for tokens and private Notion APIs
+
+The backup process is entirely carried out in the background using web scraping, without requiring any user input.
+
+[Link to the Github repository](https://github.com/shockz-offsec/Scraping-Notion-Backup)
