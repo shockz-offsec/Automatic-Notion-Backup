@@ -102,7 +102,7 @@ def generate_export():
                 time.sleep(1)
                 
                 # Checks if the file size has stabilized in the last 30 seconds
-                for _ in range(30):
+                for _ in range(60):
                     if os.path.getsize(filepath) != size: # If the size has changed
                         size = os.path.getsize(filepath) # Update file size
                         time.sleep(1) 
