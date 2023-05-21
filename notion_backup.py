@@ -42,7 +42,7 @@ def login_to_notion(email, password):
         driver.find_element(By.XPATH, '//div[text()="Continue with password"]').click()
 
         # Wait for the page to load completely after logging in.
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//div[text()="Settings & members"]')))
+        WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.XPATH, '//div[text()="Settings & members"]')))
         logging.info("Successful login")
 
         NOTION_TOKEN_V2 = driver.get_cookie("token_v2")['value']
@@ -102,10 +102,10 @@ def generate_export():
                 time.sleep(1)
                 
                 # Checks if the file size has stabilized in the last 30 seconds
-                for _ in range(60):
+                for _ in range(120):
                     if os.path.getsize(filepath) != size: # If the size has changed
                         size = os.path.getsize(filepath) # Update file size
-                        time.sleep(1) 
+                        time.sleep(2) 
                     else: # If the size has not changed
                         break # Exits the for loop
                 else: # If the time limit is reached
@@ -267,7 +267,8 @@ if __name__ == "__main__":
 
     # Import config
     data = {}
-    with open(os.path.join(os.path.join(os.path.dirname(os.path.realpath(__file__)),'config.json'))) as file:
+    json_file_path = os.path.join(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'config.json'))
+    with open(json_file_path, encoding='utf-8') as file:
         data = json.load(file)
 
     ## Global variables ##
@@ -327,6 +328,7 @@ if __name__ == "__main__":
     options = Options()
     # Configure download options in Firefox
     download_path = data["DOWNLOAD_PATH"]
+    options.set_preference("browser.charset.default", "UTF-8")
     options.set_preference("browser.download.folderList", 2)
     options.set_preference("browser.download.manager.showWhenStarting", False)
     options.set_preference("browser.download.dir", download_path)
