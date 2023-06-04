@@ -301,7 +301,7 @@ if __name__ == "__main__":
             driver_path = os.path.join(os.getcwd(), 'geckodriver.exe')
             if not os.path.isfile(driver_path):
                 logging.info("Installing Geckodrive")
-                url = 'https://github.com/mozilla/geckodriver/releases/download/v0.30.0/geckodriver-v0.30.0-win64.zip'
+                url = 'https://github.com/mozilla/geckodriver/releases/download/v0.32.2/geckodriver-v0.32.2-win64.zip'
                 with urllib.request.urlopen(url) as response, open('geckodriver.zip', 'wb') as out_file:
                     shutil.copyfileobj(response, out_file)
                 with ZipFile('geckodriver.zip', 'r') as zipObj:
@@ -310,10 +310,10 @@ if __name__ == "__main__":
             else:
                 logging.info("Geckodrive ready!")
         else:
-            driver_path = shutil.which('geckodriver')
-            if not driver_path:
-                logging.info("Installing Geckodrive")
-                url = 'https://github.com/mozilla/geckodriver/releases/download/v0.30.0/geckodriver-v0.30.0-linux64.tar.gz'
+            driver_path = os.path.join(os.getcwd(), 'geckodriver')
+            if not os.path.isfile(driver_path):
+                logging.info("Installing Geckodriver")
+                url = 'https://github.com/mozilla/geckodriver/releases/download/v0.32.2/geckodriver-v0.32.2-linux64.tar.gz'
                 with urllib.request.urlopen(url) as response, open('geckodriver.tar.gz', 'wb') as out_file:
                     shutil.copyfileobj(response, out_file)
                 with tarfile.open('geckodriver.tar.gz', 'r:gz') as tarObj:
