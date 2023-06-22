@@ -27,16 +27,16 @@ def login_to_notion(email, password):
         # Open the Notion login page
         driver.get('https://www.notion.so/login')
         # Wait for the page to load completely.
-        WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.XPATH, '//*[@id="notion-email-input-1"]')))
+        WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.XPATH, '//*[@placeholder="Enter your email address..."]')))
         # Email
-        email_input = driver.find_element(By.XPATH, '//*[@id="notion-email-input-1"]')
+        email_input = driver.find_element(By.XPATH, '//*[@placeholder="Enter your email address..."]')
         email_input.send_keys(email)
         time.sleep(1)
         driver.find_element(By.XPATH, '//div[text()="Continue with email"]').click()
         time.sleep(1)
 
         # Password
-        password_input = driver.find_element(By.XPATH, '//*[@id="notion-password-input-2"]')
+        password_input = driver.find_element(By.XPATH, '//*[@placeholder="Enter your password..."]')
         password_input.send_keys(password)
         time.sleep(1)
         driver.find_element(By.XPATH, '//div[text()="Continue with password"]').click()
